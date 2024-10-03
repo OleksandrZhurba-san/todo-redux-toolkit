@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodoToList } from "../../redux/slices/todoSlice";
 import { uid } from "uid";
-import { Button, notification } from "antd";
+import { Button, notification, Flex, Input } from "antd";
+
+const { TextArea } = Input;
 
 export default function Form() {
   const [title, setTitle] = useState("");
@@ -31,15 +33,18 @@ export default function Form() {
   }
 
   return (
-    <form>
+    <Flex style={{ maxWidth: "450px" }} justify="start" align="center" gap={8}>
       {contextHolder}
-      <input
+      <TextArea
+        showCount
+        maxLength={100}
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        type="text"
-        placeholder="Enter new TODO"
+        placeholder="can resize"
       />
-      <Button onClick={handleSubmit}>ADD</Button>
-    </form>
+      <Button type="primary" onClick={handleSubmit}>
+        ADD
+      </Button>
+    </Flex>
   );
 }

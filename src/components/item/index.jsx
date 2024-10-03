@@ -1,11 +1,10 @@
-import styles from "./styles.module.css";
 import { removeTodoFromList, toggleTodo } from "../../redux/slices/todoSlice";
 import { useDispatch } from "react-redux";
-import clsx from "clsx";
-import { Button, Modal } from "antd";
+import { Flex, Typography, Button, Modal } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
 const { confirm } = Modal;
+const { Text } = Typography;
 
 export default function Item({ id, title, complete }) {
   const dispatcher = useDispatch();
@@ -28,16 +27,16 @@ export default function Item({ id, title, complete }) {
   }
 
   return (
-    <div className={styles.item_container}>
-      <h2
-        className={clsx({
-          [styles.completed]: complete === true,
-        })}
-      >
-        {title}
-      </h2>
-      <Button onClick={handleComplete}>complete</Button>
-      <Button onClick={showConfirm}>remove</Button>
-    </div>
+    <Flex wrap="flex-wrap" justify="start" gap={16}>
+      {complete ? <Text delete> {title}</Text> : <Text strong>{title}</Text>}
+      <Flex vertical>
+        <Button type="primary" onClick={handleComplete}>
+          complete
+        </Button>
+        <Button danger onClick={showConfirm}>
+          remove
+        </Button>
+      </Flex>
+    </Flex>
   );
 }
